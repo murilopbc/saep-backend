@@ -2,15 +2,11 @@ package com.murilo.saep.entities;
 
 import com.murilo.saep.dto.tasks.PostTaskDTO;
 import com.murilo.saep.dto.tasks.PutTaskDTO;
-import com.murilo.saep.dto.users.PostUserDTO;
 import com.murilo.saep.enums.TaskPriority;
 import com.murilo.saep.enums.TaskStatus;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -19,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity(name = "tasks")
 @NoArgsConstructor
 @Getter
+@Setter
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id_task")
 public class Task {
@@ -56,17 +53,25 @@ public class Task {
     }
 
 
-//    public void updateTaskInfo(User user,@Valid PutTaskDTO data){
-//        if (data.user() != null){
-//            this.localName = data.local_name();
-//        }
-//
-//        if (data.localStatus() != null) {
-//            this.localStatus = data.localStatus();
-//        }
-//
-//
-//    }
+    public void updateTaskInfo(User user,@Valid PutTaskDTO data){
+        if (data.user() != null){
+            this.user = user;
+        }
+
+        if (data.task_description() != null) {
+            this.task_description = data.task_description();
+        }
+
+        if (data.sector() != null) {
+            this.sector = data.sector();
+        }
+
+        if (data.priority() != null) {
+            this.priority = data.priority();
+        }
+
+
+    }
 
 
 
