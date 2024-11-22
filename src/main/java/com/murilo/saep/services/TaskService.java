@@ -14,5 +14,8 @@ public interface TaskService {
     GetTaskDTO createTask(PostTaskDTO data);
     GetTaskDTO updateTask(Long id, PutTaskDTO data);
     GetTaskDTO deleteTask(Long id);
-    ResponseEntity<Void> updateTaskStatus(Long id, TaskStatus status);
+    void updateTaskStatus(Long id, TaskStatus status);
+    ResponseEntity<List<String>> getTaskStatus();
+    ResponseEntity<List<String>> getTaskPriority();
+    List<GetTaskDTO> getTaskByStatus(TaskStatus taskStatus);
 }

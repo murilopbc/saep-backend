@@ -4,6 +4,7 @@ import com.murilo.saep.dto.tasks.GetTaskDTO;
 import com.murilo.saep.dto.tasks.PostTaskDTO;
 import com.murilo.saep.dto.tasks.PutTaskDTO;
 import com.murilo.saep.entities.Task;
+import com.murilo.saep.enums.TaskPriority;
 import com.murilo.saep.enums.TaskStatus;
 import com.murilo.saep.exceptions.NotFoundException;
 import com.murilo.saep.repositories.TaskRepository;
@@ -14,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -75,12 +79,38 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     @Transactional
-    public ResponseEntity<Void> updateTaskStatus(Long id, TaskStatus status){
+    public void updateTaskStatus(Long id, TaskStatus status){
         Task task = this.taskRepository.findById(id).orElseThrow(() -> new NotFoundException("Task not found!"));
         task.setTask_status(status);
         taskRepository.save(task);
-        return ResponseEntity.ok().build();
+        ResponseEntity.ok().build();
     }
 
+
+
+    @Override
+    public ResponseEntity<List<String>> getTaskStatus() {
+        List<String> categories = Arrays.stream(TaskStatus.values())
+                .map(TaskStatus::name)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(categories);
+    }
+
+    @Override
+    public ResponseEntity<List<String>> getTaskPriority() {
+        List<String> categories = Arrays.stream(TaskPriority.values())
+                .map(TaskPriority::name)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(categories);
+    }
+
+
+    @Override
+    public List<GetTaskDTO> getTaskByStatus(TaskStatus taskStatus) {
+        return this.taskRepository.findByTaskStatus(taskStatus)
+                .stream()
+                .map(GetTaskDTO::new)
+                .toList();
+    }
 
 }

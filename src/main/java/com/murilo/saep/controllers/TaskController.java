@@ -67,4 +67,34 @@ public class TaskController {
         taskService.updateTaskStatus(id, taskStatus);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/status")
+    public ResponseEntity<ResponseEntity<List<String>>> getTaskStatus(){
+        return new ResponseEntity<>(taskService.getTaskStatus(), HttpStatus.OK);
+    }
+
+    @GetMapping("/priority")
+    public ResponseEntity<ResponseEntity<List<String>>> getTaskPriority(){
+        return new ResponseEntity<>(taskService.getTaskPriority(), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/do")
+    public ResponseEntity<List<GetTaskDTO>> getToDoTasks() {
+        List<GetTaskDTO> tasks = taskService.getTaskByStatus(TaskStatus.FAZER);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @GetMapping("/doing")
+    public ResponseEntity<List<GetTaskDTO>> getDoingTasks() {
+        List<GetTaskDTO> tasks = taskService.getTaskByStatus(TaskStatus.FAZENDO);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @GetMapping("/done")
+    public ResponseEntity<List<GetTaskDTO>> getDoneTasks() {
+        List<GetTaskDTO> tasks = taskService.getTaskByStatus(TaskStatus.PRONTO);
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
 }

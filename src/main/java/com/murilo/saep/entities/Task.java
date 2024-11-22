@@ -28,8 +28,9 @@ public class Task {
 
     private String sector;
 
+    @Column(name = "task_status")
     @Enumerated(EnumType.STRING)
-    private TaskStatus task_status;
+    private TaskStatus taskStatus;
 
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
@@ -47,7 +48,7 @@ public class Task {
     public Task(User user, PostTaskDTO data){
         this.task_description = data.task_description();
         this.sector = data.sector();
-        this.task_status = TaskStatus.FAZER;
+        this.taskStatus = TaskStatus.FAZER;
         this.priority = data.priority();
         this.user = user;
     }
