@@ -81,7 +81,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public void updateTaskStatus(Long id, TaskStatus status){
         Task task = this.taskRepository.findById(id).orElseThrow(() -> new NotFoundException("Task not found!"));
-        task.setTask_status(status);
+        task.setTaskStatus(status);
         taskRepository.save(task);
         ResponseEntity.ok().build();
     }

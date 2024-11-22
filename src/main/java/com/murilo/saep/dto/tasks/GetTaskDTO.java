@@ -7,8 +7,8 @@ import com.murilo.saep.enums.TaskStatus;
 
 import java.time.LocalDateTime;
 
-public record GetTaskDTO(Long id, String task_description, String sector, TaskStatus status, TaskPriority priority, User user, LocalDateTime registered_date) {
+public record GetTaskDTO(Long id, String task_description, String sector, TaskStatus taskStatus, TaskPriority priority, User user, LocalDateTime registered_date) {
     public GetTaskDTO(Task task) {
-        this(task.getId_task(), task.getTask_description(), task.getSector(), task.getTask_status(), task.getPriority(), task.getUser(), task.getRegisteredDate());
+        this(task.getId_task(), task.getTask_description(), task.getSector(), task.getTaskStatus(), task.getPriority(), task.getUser(), task.getRegisteredDate());
     }
 }

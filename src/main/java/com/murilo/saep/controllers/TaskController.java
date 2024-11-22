@@ -48,11 +48,10 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<GetTaskDTO> updateTask(@PathVariable Long id, @RequestBody @Valid PutTaskDTO data){
-
+    public ResponseEntity<GetTaskDTO> updateTask(@PathVariable Long id, @RequestBody @Valid PutTaskDTO data) {
         return new ResponseEntity<>(taskService.updateTask(id, data), HttpStatus.OK);
-
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<GetTaskDTO> deleteTask(@PathVariable Long id){

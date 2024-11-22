@@ -71,6 +71,10 @@ public class Task {
             this.priority = data.priority();
         }
 
+        if (data.taskStatus() != null) {
+            this.taskStatus = data.taskStatus();
+        }
+
 
     }
 
